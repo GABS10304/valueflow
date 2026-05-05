@@ -6,7 +6,7 @@
 
 > **Das strategische Filter-Board *vor* deinem Jira. Stoppt Feature-Creep, visualisiert Impact vs. Effort und erzwingt kompromissloses Alignment zwischen Business & Tech.**
 
-[🚀 **ZUR LIVE DEMO**](https://DEIN-GITHUB-NAME.github.io/ValueFlow) *(Link später anpassen)*
+[🚀 **ZUR LIVE DEMO**](https://GABS10304.github.io/index.html) 
 
 ---
 
