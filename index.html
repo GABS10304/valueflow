@@ -232,11 +232,18 @@ function openMatrix() {
     if(s>0 && e>0) {
       const dot = document.createElement('div'); 
       dot.className = `matrix-dot dot-${i.decisionStatus} ${i.decisionStatus === 'rejected' ? 'locked-dot' : ''}`;
-      dot.style.left = `${((e-1)/4)*100}%`; dot.style.bottom = `${((s-1)/4)*100}%`;
+      
+      // NEU: "Luftpolster-Mathematik" (10% Randabstand an allen Seiten)
+      const xPercent = 10 + ((e - 1) / 4) * 80; 
+      const yPercent = 10 + ((s - 1) / 4) * 80;
+      
+      dot.style.left = `${xPercent}%`; 
+      dot.style.bottom = `${yPercent}%`;
       dot.innerHTML = `<span class="tooltip"><strong>${i.name}</strong><br>Value: ${s.toFixed(1)} | Effort: ${e.toFixed(1)}</span>`;
       document.getElementById('matrixDotsContainer').appendChild(dot);
     }
   }); document.getElementById('matrixModal').style.display = 'flex';
+}
 }
 function closeMatrix() { document.getElementById('matrixModal').style.display = 'none'; }
 
