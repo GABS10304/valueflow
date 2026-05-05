@@ -2,7 +2,6 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <!-- NEUER TITEL IM BROWSER-TAB -->
   <title>ValueFlow - Strategic Prioritization</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
@@ -88,7 +87,24 @@
 <div class="board" id="board"></div>
 <div class="modal" id="evalModal"><div class="modal-content"><h3 id="evalTitle"></h3><p id="evalHint" style="color:var(--text-muted);"></p><table id="evalTable"></table><br><button onclick="closeEval()" style="background:#166534; color:white; border:none;">✅ Scores speichern</button></div></div>
 <div class="modal" id="historyModal"><div class="modal-content"><h3>🕓 Audit Historie</h3><ul id="historyList" class="history-list"></ul><br><button onclick="closeHistory()">Schließen</button></div></div>
-<div class="modal" id="matrixModal"><div class="modal-content"><h3>📈 Strategischer Value vs. Umsetzungsaufwand</h3><div class="matrix-container" id="matrixContainer"><div class="matrix-axis-y">Strategischer Wert (Impact) ➔</div><div class="matrix-axis-x">Umsetzungsaufwand (Effort) ➔</div><div class="matrix-quadrant q-tl">Quick Wins (NOW)</div><div class="matrix-quadrant q-tr">Major Projects (NEXT)</div><div class="matrix-quadrant q-bl">Fill-ins (LATER)</div><div class="matrix-quadrant q-br">Time Sinks (NEVER)</div><div id="matrixDotsContainer"></div></div><br><button onclick="closeMatrix()">Schließen</button></div></div>
+<div class="modal" id="matrixModal">
+  <div class="modal-content">
+    <h3>📈 Strategischer Value vs. Umsetzungsaufwand</h3>
+    <div class="matrix-container" id="matrixContainer">
+      <div class="matrix-axis-y">Strategischer Wert (Impact) ➔</div>
+      <div class="matrix-axis-x">Umsetzungsaufwand (Effort) ➔</div>
+      
+      <!-- HIER SIND DIE NEUEN DEUTSCHEN BEGRIFFE -->
+      <div class="matrix-quadrant q-tl">Schnelle Erfolge (JETZT)</div>
+      <div class="matrix-quadrant q-tr">Großprojekte (DEMNÄCHST)</div>
+      <div class="matrix-quadrant q-bl">Lückenfüller (SPÄTER)</div>
+      <div class="matrix-quadrant q-br">Zeitfresser (NIE)</div>
+      
+      <div id="matrixDotsContainer"></div>
+    </div>
+    <br><button onclick="closeMatrix()">Schließen</button>
+  </div>
+</div>
 <script>
 // === DARK MODE ===
 function toggleDarkMode() {
@@ -200,7 +216,7 @@ function drop(e, status) {
 // === Modals & Matrix ===
 function openHistory(id) { const i = state.initiatives.find(x => x.id === id); document.getElementById('historyList').innerHTML = i.history.map(h => `<li><strong>${new Date(h.date).toLocaleString('de-DE', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'})}</strong><br>${h.action}</li>`).join(''); document.getElementById('historyModal').style.display = 'flex'; }
 function closeHistory() { document.getElementById('historyModal').style.display = 'none'; }
-function openEval(id, mode) { const i = state.initiatives.find(x => x.id === id); document.getElementById('evalTitle').textContent = i.name; document.getElementById('evalHint').textContent = "Scores (1-5)"; const list = mode === 'strategic' ? (i.strategicEvaluations || []) : (i.implementationEvaluations || []); document.getElementById('evalTable').innerHTML = `<tr><th>Name</th><th>Rolle</th><th>Score</th></tr>` + Array.from({length:3}).map((_,idx) => { const e = list[idx] || {}; return `<tr><td><input value="${e.user||''}" onchange="setEval(${id},'${mode}',${idx},'user',this.value)"></td><td><select onchange="setEval(${id},'${mode}',${idx},'role',this.value)"><option></option><option value="business" ${e.role==='business'?'selected':''}>Business</option><option value="tech" ${e.role==='tech'?'selected':''}>Tech</option></select></td><td><select onchange="setEval(${id},'${mode}',${idx},'score',this.value)"><option>-</option>${[1,2,3,4,5].map(n => `<option value="${n}" ${e.score==String(n)?'selected':''}>${n}</option>`).join('')}</select></td></tr>`; }).join(''); document.getElementById('evalModal').style.display = 'flex'; }
+function openEval(id, mode) { const i = state.initiatives.find(x => x.id === id); document.getElementById('evalTitle').textContent = i.name; document.getElementById('evalHint').textContent = "Scores (1-5)"; const list = mode === 'strategic' ? (i.strategicEvaluations || []) : (i.implementationEvaluations || []); document.getElementById('evalTable').innerHTML = `<tr><th>Name</th><th>Rolle</th><th>Score</th></tr>` + Array.from({length:3}).map((_,idx) => { const e = list[idx] || {}; return `<tr><td><input value="${e.user||''}" onchange="setEval(${id},'${mode}',${idx},'user',this.value)"></td><td><select onchange="setEval(${id},'${mode}',${idx},'role',this.value)"><option></option><option value="business" ${e.role==='business'?'selected':''}>Business</option><option value="tech" ${e.role==='tech'?'selected':''}>Tech</option></select></td><td><select onchange="setEval(${id},'${mode}',${idx},'score',this.value)"><option>-</option>${[1,2,3,4,5].map(n =>` <option value="${n}" ${e.score==String(n)?'selected':''}>${n}</option`).join('')}</select></td></tr>`; }).join(''); document.getElementById('evalModal').style.display = 'flex'; }
 function setEval(id, mode, idx, field, value) { const i = state.initiatives.find(x => x.id === id); const list = mode === 'strategic' ? i.strategicEvaluations : i.implementationEvaluations; if (!list[idx]) list[idx] = {}; list[idx][field] = value; save(); }
 function closeEval() { document.getElementById('evalModal').style.display = 'none'; render(); }
 function getScore(arr) { const v = (arr||[]).filter(e=>e&&e.score).map(e=>+e.score); return v.length ? v.reduce((a,b)=>a+b,0)/v.length : 0; }
@@ -212,7 +228,7 @@ function openMatrix() {
       const dot = document.createElement('div');
       dot.className = `matrix-dot dot-${i.decisionStatus} ${i.decisionStatus === 'rejected' ? 'locked-dot' : ''}`;
 
-      // Luftpolster-Mathematik (15% Rand)
+      // Luftpolster-Mathematik (15% Rand) Option A
       const xPercent = 15 + ((e - 1) / 4) * 70;
       const yPercent = 15 + ((s - 1) / 4) * 70;
 
