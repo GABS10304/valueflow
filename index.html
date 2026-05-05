@@ -17,33 +17,32 @@
       --bg-card: #0f172a; --bg-input: #1e293b; --modal-overlay: rgba(0,0,0,0.8);
       --q-tl: rgba(22, 101, 52, 0.15); --q-tr: rgba(30, 58, 138, 0.15); --q-bl: rgba(30, 41, 59, 0.3); --q-br: rgba(127, 29, 29, 0.15);
     }
-
     body { font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-main); margin: 0; padding: 24px; color: var(--text-main); transition: background-color 0.3s, color 0.3s; }
     h1 { text-align: center; margin-bottom: 4px; font-weight: 800; }
     .subtitle { text-align: center; color: var(--text-muted); margin-bottom: 24px; font-size: 15px; font-weight: 500; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.5; }
-    
+
     .board { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
     .column { background: var(--bg-col); border-radius: 8px; padding: 12px; border: 2px solid var(--border-main); min-height: 500px; }
     .column h3 { margin: 0 0 8px; font-size: 15px; display: flex; justify-content: space-between; color: var(--text-main); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;}
-    
+
     /* Card Styling & Locks */
     .card { background: var(--bg-card); border-radius: 8px; padding: 12px; border: 1px solid var(--border-main); margin-bottom: 10px; cursor: grab; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
     .card.locked { opacity: 0.55; cursor: not-allowed; background: var(--bg-col); border-style: dashed; }
     .card-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; color: var(--text-main); }
     .badge { display: inline-block; font-size: 11px; padding: 2px 6px; border-radius: 4px; margin-top: 4px; font-weight: 600; }
     .approved { background:#dcfce7; color:#166534; } .rejected { background:#fee2e2; color:#991b1b; } .undecided { background:#fef3c7; color:#92400e; } .in_progress { background:#e0e7ff; color:#3730a3; }
-    
+
     .controls { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; justify-content: center; align-items: center;}
     button, input, select { font-size: 13px; padding: 8px 12px; cursor: pointer; border: 1px solid var(--border-main); border-radius: 6px; background: var(--bg-input); color: var(--text-main); }
     button:hover { opacity: 0.9; }
     button.primary-btn { background:#2563eb; color:white; border:none; font-weight:bold; box-shadow: 0 2px 4px rgba(37,99,235,0.2); }
     button.danger-btn { background:#ef4444; color:white; border:none; font-size: 11px; }
     button.magic-btn { background:#10b981; color:white; border:none; font-weight:bold; }
-    
+
     /* File Upload Styling Trick */
     .file-upload-wrapper { position: relative; overflow: hidden; display: inline-block; }
     .file-upload-wrapper input[type=file] { font-size: 100px; position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer; }
-    
+
     /* Modals & Matrix */
     .modal { display: none; position: fixed; inset: 0; background: var(--modal-overlay); align-items: center; justify-content: center; z-index: 1000; }
     .modal-content { background: var(--bg-card); padding: 20px; border-radius: 8px; width: 90%; max-width: 900px; max-height: 90vh; overflow: auto; color: var(--text-main); border: 1px solid var(--border-main); }
@@ -52,10 +51,10 @@
     th:first-child, td:first-child { text-align: left; }
     .history-list { font-size: 13px; list-style: none; padding-left: 0; }
     .history-list li { margin-bottom: 6px; color: var(--text-muted); border-bottom: 1px solid var(--border-main); padding-bottom: 4px;}
-    
+
     .matrix-container { position: relative; width: 100%; height: 500px; background: var(--bg-card); border: 2px solid var(--border-main); margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; border-radius: 4px; overflow: hidden;}
     .matrix-quadrant { position: relative; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-weight: bold; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 0.05em; border: 1px dashed var(--border-main); }
-    .q-tl { background-color: var(--q-tl); } .q-tr { background-color: var(--q-tr); } .q-bl { background-color: var(--q-bl); } .q-br { background-color: var(--q-br); } 
+    .q-tl { background-color: var(--q-tl); } .q-tr { background-color: var(--q-tr); } .q-bl { background-color: var(--q-bl); } .q-br { background-color: var(--q-br); }
     .matrix-axis-y { position: absolute; left: -25px; top: 50%; transform: translateY(-50%) rotate(-90deg); font-weight: 700; color: var(--text-muted); font-size: 12px; letter-spacing: 1px;}
     .matrix-axis-x { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-weight: 700; color: var(--text-muted); font-size: 12px; letter-spacing: 1px;}
     .matrix-dot { position: absolute; width: 22px; height: 22px; border-radius: 50%; border: 3px solid var(--bg-card); box-shadow: 0 3px 6px rgba(0,0,0,0.4); transform: translate(-50%, 50%); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
@@ -67,36 +66,29 @@
   </style>
 </head>
 <body>
-
 <!-- NEUER TITEL & VALUE PROPOSITION -->
 <h1>ValueFlow</h1>
 <div class="subtitle">Das strategische Filter-Board <em>vor</em> deinem Jira. Stoppt Feature-Creep, visualisiert Impact vs. Effort und erzwingt kompromissloses Alignment zwischen Business & Tech.</div>
-
 <div class="controls">
   <input id="nameInput" placeholder="Initiativen-Name" style="width:200px;">
   <input id="descInput" placeholder="Problemstellung" style="width:250px;">
   <button onclick="addInitiative()">➕ Add</button>
-  
+
   <span style="margin: 0 12px; color: var(--border-main);">|</span>
-  
+
   <button onclick="exportWorkspace()" class="magic-btn" title="Speichert das Board als Datei zum Teilen">💾 Save Workspace</button>
   <div class="file-upload-wrapper">
     <button>📂 Load Workspace</button>
     <input type="file" id="importFile" accept=".json, .focusflow" onchange="importWorkspace(event)">
   </div>
-
   <span style="margin: 0 12px; color: var(--border-main);">|</span>
-
   <button onclick="openMatrix()" class="primary-btn">📈 Value/Effort Matrix</button>
   <button onclick="toggleDarkMode()" style="font-size: 14px;" title="Hell/Dunkel Modus">🌓</button>
 </div>
-
 <div class="board" id="board"></div>
-
 <div class="modal" id="evalModal"><div class="modal-content"><h3 id="evalTitle"></h3><p id="evalHint" style="color:var(--text-muted);"></p><table id="evalTable"></table><br><button onclick="closeEval()" style="background:#166534; color:white; border:none;">✅ Scores speichern</button></div></div>
 <div class="modal" id="historyModal"><div class="modal-content"><h3>🕓 Audit Historie</h3><ul id="historyList" class="history-list"></ul><br><button onclick="closeHistory()">Schließen</button></div></div>
 <div class="modal" id="matrixModal"><div class="modal-content"><h3>📈 Strategischer Value vs. Umsetzungsaufwand</h3><div class="matrix-container" id="matrixContainer"><div class="matrix-axis-y">Strategischer Wert (Impact) ➔</div><div class="matrix-axis-x">Umsetzungsaufwand (Effort) ➔</div><div class="matrix-quadrant q-tl">Quick Wins (NOW)</div><div class="matrix-quadrant q-tr">Major Projects (NEXT)</div><div class="matrix-quadrant q-bl">Fill-ins (LATER)</div><div class="matrix-quadrant q-br">Time Sinks (NEVER)</div><div id="matrixDotsContainer"></div></div><br><button onclick="closeMatrix()">Schließen</button></div></div>
-
 <script>
 // === DARK MODE ===
 function toggleDarkMode() {
@@ -104,13 +96,11 @@ function toggleDarkMode() {
   localStorage.setItem('focusflow_theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
 }
 if (localStorage.getItem('focusflow_theme') === 'dark') document.body.classList.add('dark-mode');
-
 // === KANBAN STATE & DUMMY DATA ===
 let state = { initiatives: [] };
 const STATUSES = ['backlog', 'strategic_review', 'strategic_prioritized', 'implementation_review', 'ready'];
 const STATUS_LABELS = { backlog: '1. Backlog', strategic_review: '2. Value Assessment', strategic_prioritized: '3. Strategisch Prio', implementation_review: '4. Tech Scoping', ready: '5. Ready for Dev' };
 const DECISION_LABELS = { undecided: 'Entscheidung offen', approved: 'Freigegeben (Go)', rejected: 'Abgelehnt (No-Go)', in_progress: 'In Umsetzung' };
-
 const DUMMY_DATA = {
   initiatives: [
     { id: 1, name: "EU AI Act Compliance Tracker", description: "Automatisches Reporting für 2026.", status: "ready", decisionStatus: "approved", strategicEvaluations: [{ user: "CPO", role: "business", score: "5" }], implementationEvaluations: [{ user: "Tech", role: "tech", score: "2" }], history: [{ date: new Date().toISOString(), action: "Erstellt" }] },
@@ -118,10 +108,8 @@ const DUMMY_DATA = {
     { id: 3, name: "Crypto Payments (DOGE)", description: "Zahlungen mit Memecoins.", status: "backlog", decisionStatus: "rejected", strategicEvaluations: [{ user: "Sales", role: "business", score: "1" }], implementationEvaluations: [{ user: "Sec", role: "tech", score: "4" }], history: [{ date: new Date().toISOString(), action: "Abgelehnt. Passt nicht zur Strategie." }] },
   ]
 };
-
 function save() { localStorage.setItem('kanban_state', JSON.stringify(state)); }
 function load() { const s = localStorage.getItem('kanban_state'); if (s) { state = JSON.parse(s); } else { state = DUMMY_DATA; save(); } }
-
 // === SHARE WORKSPACE (JSON IMPORT/EXPORT) ===
 function exportWorkspace() {
   const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
@@ -130,7 +118,6 @@ function exportWorkspace() {
   dlAnchorElem.setAttribute("download", `ValueFlow_Workspace_${new Date().toISOString().slice(0,10)}.json`);
   dlAnchorElem.click();
 }
-
 function importWorkspace(event) {
   const file = event.target.files[0];
   if (!file) return;
@@ -141,12 +128,11 @@ function importWorkspace(event) {
       save(); render();
       alert("Workspace erfolgreich geladen!");
     } catch (err) {
-      alert("Fehler beim Laden der Datei. Ist es ein gültiger ValueFlow/FocusFlow Export?");
+      alert("Fehler beim Laden der Datei. Ist es ein gültiger ValueFlow Export?");
     }
   };
   reader.readAsText(file);
 }
-
 // === KANBAN LOGIK ===
 function addInitiative() {
   const nameInput = document.getElementById('nameInput');
@@ -155,13 +141,11 @@ function addInitiative() {
   state.initiatives.push({ id: Date.now(), name: nameInput.value.trim(), description: descInput.value.trim(), status: 'backlog', decisionStatus: 'undecided', strategicEvaluations: [], implementationEvaluations: [], history: [{ date: new Date().toISOString(), action: 'Ins Backlog gepackt.' }] });
   nameInput.value = ''; descInput.value = ''; save(); render();
 }
-
 function changeDecision(id, value) {
-  const i = state.initiatives.find(x => x.id === id); 
+  const i = state.initiatives.find(x => x.id === id);
   i.decisionStatus = value;
   i.history.push({ date: new Date().toISOString(), action: 'Status geändert: ' + DECISION_LABELS[value] }); save(); render();
 }
-
 function render() {
   const board = document.getElementById('board'); board.innerHTML = '';
   STATUSES.forEach(s => {
@@ -172,16 +156,15 @@ function render() {
     board.appendChild(col);
   });
 }
-
 function card(i) {
-  const d = document.createElement('div'); 
-  
+  const d = document.createElement('div');
+
   // BUSINESS RULE 1: Abgelehnte Items sind gelockt (nicht verschiebbar)
   const isLocked = i.decisionStatus === 'rejected';
   d.className = `card ${isLocked ? 'locked' : ''}`;
-  d.draggable = !isLocked; 
+  d.draggable = !isLocked;
   if(!isLocked) d.ondragstart = e => e.dataTransfer.setData('id', i.id);
-  
+
   d.innerHTML = `<div class="card-title">${isLocked ? '🔒 ' : ''}${i.name}</div>
     <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px; display:-webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${i.description || 'Keine Beschreibung'}</div>
     <select onchange="changeDecision(${i.id}, this.value)" style="width:100%; margin-bottom:6px; font-size:12px; font-weight:bold;">
@@ -194,30 +177,26 @@ function card(i) {
       <button onclick="openHistory(${i.id})" title="Audit Historie" style="margin-left:auto; background:transparent; border:none; font-size:16px;">🕓</button>
     </div>`; return d;
 }
-
 function drop(e, status) {
-  const data = e.dataTransfer.getData('id'); if(!data) return; 
-  const i = state.initiatives.find(x => x.id === +data); 
-  
+  const data = e.dataTransfer.getData('id'); if(!data) return;
+  const i = state.initiatives.find(x => x.id === +data);
+
   // BUSINESS RULE 2: Gated Workflow für "Ready for Dev"
   if(status === 'ready' && i.decisionStatus !== 'approved') {
     alert("🛑 GOVERNANCE BLOCK:\n\nDu kannst keine Initiative in 'Ready for Dev' schieben, die nicht explizit auf 'Freigegeben (Go)' gesetzt wurde.");
     return; // Abbruch
   }
-
   // BUSINESS RULE 3: Sicherheitshalber nochmal serverseitig gelockt prüfen (falls HTML manipuliert wird)
   if(i.decisionStatus === 'rejected') {
     alert("🔒 Diese Karte ist abgelehnt und festgesetzt. Ändere erst die Entscheidung.");
     return;
   }
-
   if(i.status !== status) {
     i.status = status;
-    i.history.push({ date: new Date().toISOString(), action: 'Prozess: ➡ ' + STATUS_LABELS[status] }); 
+    i.history.push({ date: new Date().toISOString(), action: 'Prozess: ➡ ' + STATUS_LABELS[status] });
     save(); render();
   }
 }
-
 // === Modals & Matrix ===
 function openHistory(id) { const i = state.initiatives.find(x => x.id === id); document.getElementById('historyList').innerHTML = i.history.map(h => `<li><strong>${new Date(h.date).toLocaleString('de-DE', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'})}</strong><br>${h.action}</li>`).join(''); document.getElementById('historyModal').style.display = 'flex'; }
 function closeHistory() { document.getElementById('historyModal').style.display = 'none'; }
@@ -230,22 +209,20 @@ function openMatrix() {
   state.initiatives.forEach(i => {
     const s = getScore(i.strategicEvaluations), e = getScore(i.implementationEvaluations);
     if(s>0 && e>0) {
-      const dot = document.createElement('div'); 
+      const dot = document.createElement('div');
       dot.className = `matrix-dot dot-${i.decisionStatus} ${i.decisionStatus === 'rejected' ? 'locked-dot' : ''}`;
-      
-      // NEU: "Luftpolster-Mathematik" (10% Randabstand an allen Seiten)
-    const xPercent = 20 + ((e - 1) / 4) * 60; 
-    const yPercent = 20 + ((s - 1) / 4) * 60;
-      
-      dot.style.left = `${xPercent}%`; 
+
+      // Luftpolster-Mathematik (15% Rand)
+      const xPercent = 15 + ((e - 1) / 4) * 70;
+      const yPercent = 15 + ((s - 1) / 4) * 70;
+
+      dot.style.left = `${xPercent}%`;
       dot.style.bottom = `${yPercent}%`;
       dot.innerHTML = `<span class="tooltip"><strong>${i.name}</strong><br>Value: ${s.toFixed(1)} | Effort: ${e.toFixed(1)}</span>`;
       document.getElementById('matrixDotsContainer').appendChild(dot);
     }
   }); document.getElementById('matrixModal').style.display = 'flex';
 }
-}
 function closeMatrix() { document.getElementById('matrixModal').style.display = 'none'; }
-
 load(); render();
 </script></body></html>
